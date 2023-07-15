@@ -5,15 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.UUID;
 
 
-public class Person {
+public class User {
 
     private UUID id;
-    private String userName;
+    private String email;
     private String password;
 
-    public Person(UUID id, @JsonProperty("userName") String userName, @JsonProperty("password") String password) {
+    public User(UUID id, @JsonProperty("email") String email, @JsonProperty("password") String password) {
         this.id = id;
-        this.userName = userName;
+        this.email = email;
         this.password = password;
     }
 
@@ -21,8 +21,8 @@ public class Person {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
