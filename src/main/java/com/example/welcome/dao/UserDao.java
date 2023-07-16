@@ -1,19 +1,13 @@
 package com.example.welcome.dao;
 import com.example.welcome.model.User;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+@Repository
+public interface UserDao extends CrudRepository<User, UUID> {
 
-public interface UserDao {
-
-    void insertUser(UUID id, User user);
-
-    default void insertUser(User user) {
-        UUID id = UUID.randomUUID();
-        insertUser(id, user);
-    }
-
-    List<User> getAll();
-
+    public Optional<User> findByEmail(String email);
 }
