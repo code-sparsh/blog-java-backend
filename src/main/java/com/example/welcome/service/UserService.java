@@ -50,7 +50,8 @@ public class UserService {
             throw new AuthException("Incorrect Password");
 
         user.setId(storedUser.get().getId());
-        return user;
+        storedUser.get().setPassword(null);
+        return storedUser.get();
 
     }
 

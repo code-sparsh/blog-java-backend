@@ -17,8 +17,8 @@ public class User {
 
     @Column(unique = true)
     private String email;
-
     private String password;
+    private String name;
 
     public void setId(UUID id) {
         this.id = id;
@@ -32,9 +32,10 @@ public class User {
         this.password = password;
     }
 
-    public User(@JsonProperty("email") String email, @JsonProperty("password") String password) {
+    public User(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("name") String name) {
         this.email = email;
         this.password = password;
+        this.name = name;
     }
 
     User() {
@@ -50,6 +51,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

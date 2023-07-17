@@ -14,6 +14,9 @@ public class Blog {
     @Column(name = "blogID")
     private UUID id;
     private String title;
+
+    @Lob
+    @Column(length = 1000000)
     private String data;
     private String author;
 
@@ -21,6 +24,10 @@ public class Blog {
         this.title = title;
         this.data = data;
         this.author = author;
+    }
+
+    public Blog() {
+
     }
 
     public UUID getId() {

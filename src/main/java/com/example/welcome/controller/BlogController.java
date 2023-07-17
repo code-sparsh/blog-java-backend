@@ -2,6 +2,7 @@ package com.example.welcome.controller;
 
 import com.example.welcome.model.Blog;
 import com.example.welcome.service.BlogService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/blog")
+@RequestMapping("/api/blog")
+@CrossOrigin(origins = "*")
 public class BlogController {
 
     @Autowired
@@ -19,9 +21,11 @@ public class BlogController {
 
 
     @GetMapping
-    public ResponseEntity<?> getAllBlogs() {
+    public @JsonProperty ResponseEntity<?> getAllBlogs() {
         List<Blog> blogs = blogService.getAllBlogs();
+        System.out.println(blogs);
         return ResponseEntity.status(200).body(blogs);
+
     }
 
     @GetMapping("/{id}")
