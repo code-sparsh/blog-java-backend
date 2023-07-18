@@ -11,15 +11,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@RestController
+
 @RequestMapping("/api/blog")
 @CrossOrigin(origins = "*")
+@RestController
 public class BlogController {
 
     @Autowired
     private BlogService blogService;
 
-
+    @CrossOrigin
     @GetMapping
     public @JsonProperty ResponseEntity<?> getAllBlogs() {
         List<Blog> blogs = blogService.getAllBlogs();
@@ -28,12 +29,14 @@ public class BlogController {
 
     }
 
+    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<?> getBlogByID(@PathVariable("id") UUID id) {
         Optional<Blog> blog = blogService.getBlogByID(id);
         return ResponseEntity.status(200).body(blog);
     }
 
+    @CrossOrigin
     @PostMapping("/create")
     public ResponseEntity<?> createBlog(@RequestBody Blog blog) {
         Blog createdBlog = blogService.createBlog(blog);
