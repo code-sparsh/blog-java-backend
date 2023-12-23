@@ -1,6 +1,6 @@
 package com.example.welcome.service;
 
-import com.example.welcome.dao.BlogDao;
+import com.example.welcome.repo.BlogRepo;
 import com.example.welcome.model.Blog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,19 +13,18 @@ import java.util.UUID;
 public class BlogService {
 
     @Autowired
-    private BlogDao blogDao;
+    private BlogRepo blogRepo;
 
     public Blog createBlog(Blog blog) {
-        return blogDao.save(blog);
+        return blogRepo.save(blog);
     }
 
     public Optional<Blog> getBlogByID(UUID id) {
-        Optional<Blog> storedBlog = blogDao.findById(id);
-        return storedBlog;
+        return blogRepo.findById(id);
     }
 
     public List<Blog> getAllBlogs() {
-        return (List<Blog>) blogDao.findAll();
+        return blogRepo.findAll();
     }
 
 }
