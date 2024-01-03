@@ -24,9 +24,7 @@ public class BlogController {
     @GetMapping
     public @JsonProperty ResponseEntity<?> getAllBlogs() {
         List<Blog> blogs = blogService.getAllBlogs();
-        System.out.println(blogs);
         return ResponseEntity.status(200).body(blogs);
-
     }
 
     @CrossOrigin
