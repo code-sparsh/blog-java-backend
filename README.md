@@ -4,6 +4,9 @@
 
 This is a repo for the server application of BlogPoint, written in Java using [Spring Boot](https://spring.io/projects/spring-boot/)
 
+## Built using 
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)  ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+
 ## 🛫 Quick Setup
 
 ```sh
@@ -69,7 +72,7 @@ Response:
 
 </details>
 
-<br> 
+
 
 <details>
 <summary><b>/api/blog:   
@@ -147,11 +150,12 @@ Response:
 {
     "id": "299f230e-ee60-4d02-b440-9b83e993289d",
     "title": "A test Blog",
-    "data": "Welcome to the blog /n I am testing something here",
+    "data": "Welcome to the blog /n I amhttps://icons8.com/icon/f34HG4w9RjQk/mysql testing something here",
     "author": "Sparsh Sethi"
 }
 ```
 
 
 </details>
+
 
