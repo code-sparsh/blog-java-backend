@@ -1,0 +1,4 @@
+com/example/welcome/service/BlogServiceTests.class
+com/example/welcome/repo/BlogRepoTests.class
+com/example/welcome/service/UserServiceTests.class
+com/example/welcome/WelcomeApplicationTests.class
