@@ -30,6 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NotNull HttpServletResponse response,
             @NotNull FilterChain filterChain
     ) throws ServletException, IOException {
+        System.out.println("Intercepting a request");
 
         if(request.getRequestURI() == "/login" || request.getRequestURI() == "/register") {
             filterChain.doFilter(request, response);

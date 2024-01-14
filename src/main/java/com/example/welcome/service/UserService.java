@@ -20,7 +20,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
-        return (List<User>) userRepo.findAll();
+        return userRepo.findAll();
     }
 
 
