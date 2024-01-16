@@ -32,8 +32,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         System.out.println("Intercepting a request");
 
-        if(request.getRequestURI() == "/login" || request.getRequestURI() == "/register") {
+        if(request.getRequestURI().equals("/api/auth/login" ) || request.getRequestURI().equals("/api/auth/register" ) || request.getRequestURI().equals("/test" )) {
             filterChain.doFilter(request, response);
+            return;
         }
 
         final String authHeader = request.getHeader("Authorization");
@@ -41,7 +42,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String userEmail;
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            setResponseError(response, "Token is invalid or expired");
             return;
         }
 
