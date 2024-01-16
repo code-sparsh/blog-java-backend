@@ -11,6 +11,7 @@
 /media/sparsh/Data/PROJECTS/BlogPoint/blog-java-backend/src/main/java/com/example/welcome/security/JwtAuthenticationFilter.java
 /media/sparsh/Data/PROJECTS/BlogPoint/blog-java-backend/src/main/java/com/example/welcome/repo/UserRepo.java
 /media/sparsh/Data/PROJECTS/BlogPoint/blog-java-backend/src/main/java/com/example/welcome/controller/AuthenticationController.java
+/media/sparsh/Data/PROJECTS/BlogPoint/blog-java-backend/src/main/java/com/example/welcome/controller/TestController.java
 /media/sparsh/Data/PROJECTS/BlogPoint/blog-java-backend/src/main/java/com/example/welcome/service/AuthenticationService.java
 /media/sparsh/Data/PROJECTS/BlogPoint/blog-java-backend/src/main/java/com/example/welcome/repo/FakeUserDataAccessService.java
 /media/sparsh/Data/PROJECTS/BlogPoint/blog-java-backend/src/main/java/com/example/welcome/service/BlogService.java

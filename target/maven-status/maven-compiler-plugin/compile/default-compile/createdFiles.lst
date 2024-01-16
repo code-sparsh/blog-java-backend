@@ -2,6 +2,7 @@ com/example/welcome/security/ApplicationConfig$1.class
 com/example/welcome/repo/BlogRepo.class
 com/example/welcome/repo/UserRepo.class
 com/example/welcome/welcomeApplication.class
+com/example/welcome/controller/TestController.class
 com/example/welcome/model/Blog.class
 com/example/welcome/security/JwtUtil.class
 com/example/welcome/service/AuthenticationService.class
