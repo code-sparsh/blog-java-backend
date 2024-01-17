@@ -1,4 +1,5 @@
-FROM eclipse-temurin:17-jdk-alpine
+# Stage 1: Build Stage
+FROM maven:3.8.4-openjdk-17 AS build
 
 # Set the working directory
 WORKDIR /app
@@ -10,16 +11,19 @@ COPY pom.xml .
 COPY . .
 
 # Build the application using Maven
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
-# Set the volume for temporary files
-VOLUME /tmp
+# Stage 2: Runtime Stage
+FROM eclipse-temurin:17-jdk-alpine AS runtime
 
-# Copy the JAR file from the target directory to the root of the container
-COPY target/*.jar app.jar
+# Set the working directory
+WORKDIR /app
+
+# Copy only the necessary artifacts from the build stage
+COPY --from=build /app/target/*.jar app.jar
 
 # Entry point for running the application
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
 # Expose the port that the application will run on
 EXPOSE 8080
