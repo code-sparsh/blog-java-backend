@@ -13,7 +13,7 @@ import java.util.UUID;
 
 
 @RequestMapping("/api/blog")
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RestController
 public class BlogController {
 

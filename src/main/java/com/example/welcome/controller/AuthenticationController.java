@@ -5,19 +5,16 @@ import com.example.welcome.exception.AuthException;
 import com.example.welcome.model.User;
 import com.example.welcome.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@RequestMapping("/api/auth")
+@CrossOrigin
+@RestController
 public class AuthenticationController {
 
     private final AuthenticationService authService;
@@ -31,7 +28,7 @@ public class AuthenticationController {
         } catch (AuthException e) {
             Map<String, String> response = new HashMap<>();
             response.put("error", e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            return ResponseEntity.status(e.getResponseCode()).body(response);
         }
         return ResponseEntity.status(200).body(authResponse);
     }
@@ -45,7 +42,7 @@ public class AuthenticationController {
         } catch (AuthException e) {
             Map<String, String> response = new HashMap<>();
             response.put("error", e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            return ResponseEntity.status(e.getResponseCode()).body(response);
         }
         return ResponseEntity.status(200).body(authResponse);
     }

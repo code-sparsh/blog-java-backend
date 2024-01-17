@@ -28,7 +28,7 @@ public class AuthenticationService {
 
         Optional<User> storedUser = userRepo.findByEmail(user.getEmail());
         if (storedUser.isPresent())
-            throw new AuthException("Email ID already exists");
+            throw new AuthException("Email ID already exists", 409);
 
         String password = user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
@@ -46,13 +46,13 @@ public class AuthenticationService {
 
         // if ID not found in the database
         if (storedUser.isEmpty())
-            throw new AuthException("User not found");
+            throw new AuthException("User not found", 404);
 
         boolean match = passwordEncoder.matches(user.getPassword(), storedUser.get().getPassword());
 
         // if password incorrect
         if (!match)
-            throw new AuthException("Incorrect Password");
+            throw new AuthException("Incorrect Password", 401);
 
 
         String token = jwtUtil.generateToken(user);
