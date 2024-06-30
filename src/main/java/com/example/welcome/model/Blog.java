@@ -1,6 +1,5 @@
 package com.example.welcome.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -16,11 +15,10 @@ public class Blog {
     private String title;
 
     @Lob
-    @Column(length = 1000000)
     private String data;
     private String author;
 
-    public Blog(@JsonProperty String title, @JsonProperty String data, @JsonProperty String author) {
+    public Blog(String title,String data, String author) {
         this.title = title;
         this.data = data;
         this.author = author;

@@ -1,6 +1,5 @@
 package com.example.welcome.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,7 +34,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User(@JsonProperty("email") String email, @JsonProperty("password") String password, @JsonProperty("name") String name) {
+    public User(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
