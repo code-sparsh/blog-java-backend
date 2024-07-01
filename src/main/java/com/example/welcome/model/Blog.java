@@ -15,6 +15,7 @@ public class Blog {
     private String title;
 
     @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String data;
     private String author;
 

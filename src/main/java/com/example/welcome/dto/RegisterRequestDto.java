@@ -1,4 +1,4 @@
-package com.example.welcome.auth;
+package com.example.welcome.dto;
 
 
 import lombok.AllArgsConstructor;

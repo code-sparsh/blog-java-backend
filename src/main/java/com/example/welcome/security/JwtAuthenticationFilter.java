@@ -32,18 +32,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         System.out.println("Intercepting a request");
 
-        if(request.getRequestURI().equals("/api/auth/login" ) || request.getRequestURI().equals("/api/auth/register" ) || request.getRequestURI().equals("/test" )) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+//        if(request.getRequestURI().equals("/api/auth/login" ) || request.getRequestURI().equals("/api/auth/register" ) || request.getRequestURI().equals("/test" )) {
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
 
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String userEmail;
+        final String username;
 
         if(authHeader == null || !authHeader.startsWith("Bearer ")) {
-            response.setStatus(HttpServletResponse.SC_OK);
-            setResponseError(response, "Token is invalid or expired");
+            filterChain.doFilter(request,response);
             return;
         }
 
@@ -51,15 +50,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             System.out.println("JwtAuthenticationFilter: Intercepting a request");
-            userEmail = jwtUtil.extractUserEmail(jwt);
+            username = jwtUtil.extractUsername(jwt);
 
-            if(userEmail == null) {
+            if(username == null) {
                 throw new SignatureException("Invalid Token");
             }
 
-            UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            if(userDetails == null || !userDetails.getUsername().equals(userEmail)) {
+            if(userDetails == null) {
                 throw new SignatureException("Invalid Token");
             }
 
@@ -69,6 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     userDetails.getAuthorities()
             );
             SecurityContextHolder.getContext().setAuthentication(authToken);
+            request.setAttribute("username", username);
             filterChain.doFilter(request,response);
         }
         catch(Exception e) {

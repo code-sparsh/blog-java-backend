@@ -1,6 +1,6 @@
 package com.example.welcome.controller;
 
-import com.example.welcome.auth.AuthenticationResponseDto;
+import com.example.welcome.dto.AuthenticationResponseDto;
 import com.example.welcome.exception.AuthException;
 import com.example.welcome.model.User;
 import com.example.welcome.service.AuthenticationService;
@@ -22,6 +22,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) throws AuthException {
         AuthenticationResponseDto authResponse;
+
 
         try {
             authResponse = authService.register(user);

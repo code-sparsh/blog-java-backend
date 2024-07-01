@@ -1,6 +1,6 @@
 package com.example.welcome.service;
 
-import com.example.welcome.auth.AuthenticationResponseDto;
+import com.example.welcome.dto.AuthenticationResponseDto;
 import com.example.welcome.exception.AuthException;
 import com.example.welcome.model.User;
 import com.example.welcome.repo.UserRepo;
@@ -28,7 +28,12 @@ public class AuthenticationService {
 
         Optional<User> storedUser = userRepo.findByEmail(user.getEmail());
         if (storedUser.isPresent())
-            throw new AuthException("Email ID already exists", 409);
+            throw new AuthException("EMAIL_OCCUPIED", 409);
+
+        storedUser = userRepo.findByUsername(user.getUsername());
+        if (storedUser.isPresent())
+            throw new AuthException("USERNAME_OCCUPIED", 409);
+
 
         String password = user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
@@ -37,7 +42,7 @@ public class AuthenticationService {
         userRepo.save(user);
 
         String token = jwtUtil.generateToken(user);
-        return AuthenticationResponseDto.builder().token(token).build();
+        return AuthenticationResponseDto.builder().token(token).username(storedUser.get().getUsername()).build();
     }
 
     public AuthenticationResponseDto login(User user) throws AuthException {
@@ -55,7 +60,7 @@ public class AuthenticationService {
             throw new AuthException("Incorrect Password", 401);
 
 
-        String token = jwtUtil.generateToken(user);
-        return AuthenticationResponseDto.builder().token(token).build();
+        String token = jwtUtil.generateToken(storedUser.get());
+        return AuthenticationResponseDto.builder().token(token).username(storedUser.get().getUsername()).build();
     }
 }

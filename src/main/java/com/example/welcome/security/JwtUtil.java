@@ -21,7 +21,6 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private final String secretKey = "secretHaiVaiMatDekhGalatBaatHotiHai";
-    User user = new User("sparsh@example.com", "1234","Sparsh Sethi");
 
     private Key getSecretKey() {
         byte[] keyBytes = secretKey.getBytes(Charset.defaultCharset());
@@ -42,7 +41,7 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
 
-    public String extractUserEmail(String token) throws SignatureException {
+    public String extractUsername(String token) throws SignatureException {
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -54,7 +53,7 @@ public class JwtUtil {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(user.getEmail())
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
                 .signWith(getSecretKey(), SignatureAlgorithm.HS256)

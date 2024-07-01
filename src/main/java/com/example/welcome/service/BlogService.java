@@ -27,4 +27,17 @@ public class BlogService {
         return blogRepo.findAll();
     }
 
+    public boolean deleteBlog(UUID id, String username) {
+
+        Blog blog = blogRepo.findByIdAndAuthor(id, username).orElse(null);
+
+
+        if (blog == null) {
+            return false;
+        }
+
+        blogRepo.delete(blog);
+        return true;
+    }
+
 }

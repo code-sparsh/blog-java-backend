@@ -1,10 +1,10 @@
 package com.example.welcome.service;
 
-import com.example.welcome.exception.AuthException;
+import com.example.welcome.dto.UserProfileDto;
 import com.example.welcome.model.User;
+import com.example.welcome.repo.BlogRepo;
 import com.example.welcome.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,42 +17,20 @@ public class UserService {
     private UserRepo userRepo;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public List<User> getAllUsers() {
-        return userRepo.findAll();
-    }
+    private BlogRepo blogRepo;
 
 
-    public User signup(User user) throws AuthException {
+    public Optional<UserProfileDto> getUserProfile(String username) {
+        User user = userRepo.findByUsername(username).orElse(null);
 
-        Optional<User> storedUser = userRepo.findByEmail(user.getEmail());
-        if (storedUser.isPresent())
-            throw new AuthException("Email ID already exists", 409);
+        if (user == null) {
+            return null;
+        }
 
-        String password = user.getPassword();
-        String hashedPassword = passwordEncoder.encode(password);
-        user.setPassword(hashedPassword);
+        List<String> blogs = blogRepo.findBlogTitlesByAuthor(username);
 
-        return userRepo.save(user);
-    }
-
-    public User login(User user) throws AuthException {
-        Optional<User> storedUser = userRepo.findByEmail(user.getEmail());
-
-        // if ID not found in the database
-        if (storedUser.isEmpty())
-            throw new AuthException("User not found", 404);
-
-        boolean match = passwordEncoder.matches(user.getPassword(), storedUser.get().getPassword());
-        // if password incorrect
-        if (!match)
-            throw new AuthException("Incorrect Password", 401);
-
-        user.setId(storedUser.get().getId());
-        storedUser.get().setPassword(null);
-        return storedUser.get();
-
+        UserProfileDto profile = UserProfileDto.builder().name(user.getName()).username(user.getUsername()).blogs(blogs).build();
+        return Optional.ofNullable(profile);
     }
 
 }
