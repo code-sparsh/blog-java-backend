@@ -15,16 +15,15 @@ public class AwsS3Service {
     @Autowired
     private AmazonS3 client;
 
-    public boolean uploadFile() {
-        File file2 = new File("C://Users/sparsh/Pictures/0a3b6099-c254-4bc3-8360-53a9f558a0c4___Com.G_TgS_FL 8259.JPG");
-        PutObjectRequest request = new PutObjectRequest(bucketName, file2.getName(),file2);
+    public String uploadFile(File file) {
+        PutObjectRequest request = new PutObjectRequest(bucketName, "blog-images/" + file.getName(), file);
         PutObjectResult res = client.putObject(request);
 
         if(res == null) {
-            return false;
+            return "";
         }
 
-        return true;
+        return "/blog-images/" + file.getName();
     }
 
 }

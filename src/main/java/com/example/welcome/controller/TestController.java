@@ -23,8 +23,8 @@ public class TestController {
         return "Connection to the server is OK";
     }
 
-    @GetMapping("/upload")
-    public void upload() {
-        s3Service.uploadFile();
-    }
+//    @GetMapping("/upload")
+//    public void upload() {
+//        s3Service.uploadFile();
+//    }
 }
