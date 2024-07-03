@@ -23,7 +23,6 @@ public class AuthenticationController {
     public ResponseEntity<?> register(@RequestBody User user) throws AuthException {
         AuthenticationResponseDto authResponse;
 
-
         try {
             authResponse = authService.register(user);
         } catch (AuthException e) {

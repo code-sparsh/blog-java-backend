@@ -34,10 +34,13 @@ public class BlogController {
         return ResponseEntity.status(200).body(blog);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createBlog(@RequestPart(value = "blog") Blog blog,
+    @PostMapping(value = "/create")
+    public ResponseEntity<?> createBlog(@RequestPart(value = "title") String title,
+                                        @RequestPart(value = "data") String data,
                                         @RequestPart(value = "image") MultipartFile file,
                                         HttpServletRequest request) throws IOException {
+
+        Blog blog = new Blog(title, data, null);
 
         blog.setAuthor((String) request.getAttribute("username"));
         Blog createdBlog = blogService.createBlog(blog, file);
