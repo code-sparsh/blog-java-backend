@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 
-@RequestMapping("/api/blog")
+@RequestMapping("/api")
 @CrossOrigin
 @RestController
 public class BlogController {
@@ -22,19 +22,19 @@ public class BlogController {
     @Autowired
     private BlogService blogService;
 
-    @GetMapping
+    @GetMapping("/public/blog")
     public ResponseEntity<?> getAllBlogs() {
         List<Blog> blogs = blogService.getAllBlogs();
         return ResponseEntity.status(200).body(blogs);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/public/blog/{id}")
     public ResponseEntity<?> getBlogByID(@PathVariable("id") UUID id) {
         Optional<Blog> blog = blogService.getBlogByID(id);
         return ResponseEntity.status(200).body(blog);
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/blog/create")
     public ResponseEntity<?> createBlog(@RequestPart(value = "title") String title,
                                         @RequestPart(value = "data") String data,
                                         @RequestPart(value = "image") MultipartFile file,

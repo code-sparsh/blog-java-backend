@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 @CrossOrigin
 public class UserController {
 
@@ -15,7 +15,7 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping("/{username}")
+    @GetMapping("/public/user/{username}")
     public ResponseEntity<?> getUserProfile(@PathVariable String username) {
         UserProfileDto profile = userService.getUserProfile(username).orElse(null);
 

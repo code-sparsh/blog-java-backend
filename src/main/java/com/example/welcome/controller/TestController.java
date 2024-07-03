@@ -10,15 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api")
 @CrossOrigin
-
 public class TestController {
 
     @Autowired
     private AwsS3Service s3Service;
 
-    @GetMapping
+    @GetMapping("/public/test")
     public String test(HttpServletRequest request) {
         return "Connection to the server is OK";
     }

@@ -1,5 +1,6 @@
 package com.example.welcome.dto;
 
+import com.example.welcome.model.Blog;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,6 @@ public class UserProfileDto {
     private String username;
     private String name;
 
-    private List<String> blogs;
+    private List<Blog> blogs;
 
 }

@@ -16,6 +16,8 @@ public interface BlogRepo extends JpaRepository<Blog, Integer> {
 
    Optional<Blog> findByIdAndAuthor(UUID id, String username);
 
+   List<Blog> findByAuthor(String author);
+
    @Query(value = "SELECT title from blogs WHERE author = :author", nativeQuery = true)
    List<String> findBlogTitlesByAuthor(String author);
 }
