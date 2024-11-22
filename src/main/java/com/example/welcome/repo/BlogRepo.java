@@ -18,6 +18,6 @@ public interface BlogRepo extends JpaRepository<Blog, Integer> {
 
    List<Blog> findByAuthor(String author);
 
-   @Query(value = "SELECT title from blogs WHERE author = :author", nativeQuery = true)
+   @Query(value = "SELECT b.title from Blog b WHERE b.author = :author")
    List<String> findBlogTitlesByAuthor(String author);
 }

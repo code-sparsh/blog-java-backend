@@ -13,13 +13,13 @@ import java.util.UUID;
 public class Blog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "blogID")
     private UUID id;
     private String title;
 
     @Lob
-    @Column(columnDefinition = "LONGTEXT")
+    @Column(columnDefinition = "TEXT")
     private String data;
     private String author;
     private String imageURL;
