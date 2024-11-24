@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blogpoint-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+        - api.blogpoint.sparshsethi.me
+      secretName: letsencrypt-secret
+  rules:
+    - host: api.blogpoint.sparshsethi.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: blogpoint-service
+                port:
+                  number: 80

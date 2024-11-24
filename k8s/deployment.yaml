@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blogpoint
+spec:
+  selector:
+    matchLabels:
+      app: blogpoint
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: blogpoint
+    spec:
+      containers:
+        - name: blogpoint
+          image: sparshsethi15/blogpoint-server
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: blogpoint-configmap
+            - secretRef:
+                name: blogpoint-secret
