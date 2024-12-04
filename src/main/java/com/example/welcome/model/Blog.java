@@ -21,7 +21,10 @@ public class Blog {
     @Lob
     @Column(columnDefinition = "TEXT")
     private String data;
+
     private String author;
+
+    @Column(columnDefinition = "TEXT")
     private String imageURL;
 
     public Blog(String title,String data, String author) {

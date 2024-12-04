@@ -22,7 +22,7 @@ public class AwsS3Service {
         if(res == null) {
             return "";
         }
-
+        System.out.println("Uploaded this file: " + file.getName());
         return "/blog-images/" + file.getName();
     }
 

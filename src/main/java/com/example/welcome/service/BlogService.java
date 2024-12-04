@@ -5,6 +5,7 @@ import com.example.welcome.repo.BlogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -25,6 +26,7 @@ public class BlogService {
     @Value("${aws.s3.baseURL}")
     private String baseURL;
 
+    @Transactional
     public Blog createBlog(Blog blog, MultipartFile image) throws IOException {
 
         File tempFile = File.createTempFile(UUID.randomUUID().toString(), image.getOriginalFilename());
@@ -35,10 +37,12 @@ public class BlogService {
         String imageURL = s3Service.uploadFile(tempFile);
         blog.setImageURL(imageURL);
 
+        System.out.println("Saving this file: " + blog.getImageURL());
         return blogRepo.save(blog);
     }
 
-    public Optional<Blog> getBlogByID(UUID id) {
+    @Transactional(readOnly = true)
+    public Optional<Blog>  getBlogByID(UUID id) {
         Blog blog = blogRepo.findById(id).orElse(null);
         if(blog == null) {
             return null;
@@ -47,7 +51,7 @@ public class BlogService {
         blog.setImageURL(baseURL + blog.getImageURL());
         return Optional.of(blog);
     }
-
+    @Transactional(readOnly = true)
     public List<Blog> getAllBlogs() {
 
         List<Blog> blogs = blogRepo.findAll();
@@ -58,6 +62,7 @@ public class BlogService {
         return blogs;
     }
 
+    @Transactional
     public boolean deleteBlog(UUID id, String username) {
 
         Blog blog = blogRepo.findByIdAndAuthor(id, username).orElse(null);

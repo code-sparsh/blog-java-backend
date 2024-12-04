@@ -8,6 +8,7 @@ import com.example.welcome.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class UserService {
     @Value("${aws.s3.baseURL}")
     private String baseS3URL;
 
-
+    @Transactional(readOnly = true)
     public Optional<UserProfileDto> getUserProfile(String username) {
         User user = userRepo.findByUsername(username).orElse(null);
 
